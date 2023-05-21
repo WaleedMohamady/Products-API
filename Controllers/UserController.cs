@@ -30,7 +30,7 @@ public class UserController : ControllerBase
     #region Authentication With ASP Identity
     [HttpPost]
     [Route("login")]
-    public async Task<ActionResult<TokenDTO>> Login(LoginDTO credentials)
+    public async Task<ActionResult<string>> Login(LoginDTO credentials)
     {
         var user = await _userManager.FindByEmailAsync(credentials.Email);
 
@@ -74,12 +74,7 @@ public class UserController : ControllerBase
 
         var tokenHandler = new JwtSecurityTokenHandler();
         string tokenString = tokenHandler.WriteToken(jwt);
-
-        return new TokenDTO
-        {
-            Token = tokenString,
-            ExpiryDate = exp
-        };
+        return tokenString;
     }
 
     [HttpPost]

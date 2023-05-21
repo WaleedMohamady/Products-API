@@ -22,6 +22,15 @@ public class Program
         // Add services to the container.
         #region Services
 
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(name: "xyz",
+                policy =>
+                {
+                    policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+        });
+
         #region Controllers and Swagger
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -75,9 +84,9 @@ public class Program
 
         builder.Services.AddAuthorization(options =>
         {
-        options.AddPolicy("AllowAdminAndManager", policy =>
-            policy
-            .RequireClaim(ClaimTypes.Role, "Administrator", "Manager"));
+            options.AddPolicy("AllowAdminAndManager", policy =>
+                policy
+                .RequireClaim(ClaimTypes.Role, "Administrator", "Manager"));
         });
 
         #endregion
@@ -102,7 +111,8 @@ public class Program
             app.UseSwaggerUI();
         }
 
-        app.UseHttpsRedirection();
+        app.UseCors("xyz");
+        //app.UseHttpsRedirection();
 
         app.UseAuthentication();
         app.UseAuthorization();
