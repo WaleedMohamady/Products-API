@@ -28,7 +28,7 @@ public class ProductsManager : IProductsManager
         return _mapper.Map<List<ProductReadDTO>>(dbProducts);
     }
 
-    public ProductReadDTO? GetById(Guid id)
+    public ProductReadDTO GetById(Guid id)
     {
         var dbProduct = _productsRepo.GetById(id);
         if (dbProduct == null) { return null; }

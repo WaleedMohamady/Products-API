@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using nWeaveTask.BL;
 using nWeaveTask.BL.DTOs;
 
 namespace nWeaveTask.Controllers
 {
+    [Authorize(Policy = "AllowAdminAndManager")]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
@@ -50,7 +52,7 @@ namespace nWeaveTask.Controllers
         public ActionResult<ProductReadDTO> PostProduct(ProductAddDTO productAddDTO)
         {
             var productReadDTO = _productsManager.Add(productAddDTO);
-            return CreatedAtAction("GetProduct", productReadDTO);
+            return CreatedAtAction("GetProduct", new { id = Guid.NewGuid() }, productReadDTO);
         }
 
         // DELETE /api/products/{id}

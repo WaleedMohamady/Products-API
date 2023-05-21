@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using nWeaveTask.DAL.Data.Models;
 
 namespace nWeaveTask.DAL;
 
-public class nWeaveContext : DbContext
+public class nWeaveContext : IdentityDbContext<User>
 {
 	public nWeaveContext(DbContextOptions<nWeaveContext> options) : base(options)
 	{
@@ -10,6 +12,3 @@ public class nWeaveContext : DbContext
 	}
 	public DbSet<Product> Products { get; set; }
 }
-//Waleed
-//Waleed
-//Waleed
