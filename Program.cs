@@ -22,6 +22,7 @@ public class Program
         // Add services to the container.
         #region Services
 
+        #region Cors
         builder.Services.AddCors(options =>
         {
             options.AddPolicy(name: "xyz",
@@ -30,6 +31,7 @@ public class Program
                     policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                 });
         });
+        #endregion
 
         #region Controllers and Swagger
         builder.Services.AddControllers();
